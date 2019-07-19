@@ -97,7 +97,37 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-        pass
+
+        while not self.light_is_on():  # use light as exit condition
+            self.set_light_on()  # turn light on
+            while self.can_move_right():  # while the robot can move right
+                self.swap_item()  # swap the current item
+                self.move_right()  # move right
+                if self.compare_item() == 1:  # if the value of the current item is > than value of looked at item
+                    self.swap_item()  # swap
+                    self.move_left()  # move left (holding the new item)
+                    self.swap_item()  # swap the new item for yet another item
+                    self.move_right()  # move right (holding the latest item)
+                    self.set_light_off()  # turn the light off
+                else:  # in any other case besides the held item being greater
+                    self.move_left()  # move left
+                    self.swap_item()  # switch items
+                    self.move_right()  # move right
+            if not self.light_is_on():  # while the light is off (and the go right loop is done), go back to the start
+                while self.can_move_left():
+                    self.move_left()
+        # swaps_occurred = True
+        # while swaps_occurred:
+        #     swaps_occurred = False
+        #     for i in range(0, len(arr)-1):
+        #         if arr[i] > arr[i+1]:
+        #             # swap
+        #             temp = arr[i]
+        #             arr[i] = arr[i+1]
+        #             arr[i+1] = temp
+        #             swaps_occurred = True
+
+        # return arr
 
 
 if __name__ == "__main__":
